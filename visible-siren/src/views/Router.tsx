@@ -1,12 +1,13 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import MainScreen from './main'
 
 const Router = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" />
-				<Navigate to="/" />
+				<Route path = "/" element = {<MainScreen/>}/>
 			</Routes>
 		</BrowserRouter>
 	)
