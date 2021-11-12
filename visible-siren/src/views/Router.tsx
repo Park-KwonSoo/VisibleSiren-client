@@ -1,13 +1,13 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 const Router = () => {
 	return (
 		<BrowserRouter>
-			<Switch>
-				<Route exact path="/" />
-				<Redirect path="*" to="/" />
-			</Switch>
+			<Routes>
+				<Route path="/" />
+				<Navigate to="/" />
+			</Routes>
 		</BrowserRouter>
 	)
 }

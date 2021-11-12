@@ -1,4 +1,4 @@
-import Router from 'views/Router'
+import Router from './views/Router'
 
 function App() {
 	return <Router />
