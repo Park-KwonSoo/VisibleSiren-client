@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import MainPresenter from './MainPresenter';
+import notifySiren from '../../util/notifySiren';
 
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl'
@@ -39,9 +40,9 @@ const MainContainer = () => {
         (await recognizer).listen(async (result : speechCommand.SpeechCommandRecognizerResult) => {
             if(result.scores[1] > 0.8) {
                 setSirenRecog((sirenRecog : number) => {
-                    console.log(sirenRecog);
                     if(sirenRecog >= 5) {
                         setSiren(true);
+                        notifySiren();
                     } else {
                         setSiren(false);
                     }
