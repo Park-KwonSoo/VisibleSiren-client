@@ -1,7 +1,12 @@
 import React from 'react';
 import * as styled from './MainStyled';
 
-const MainPresenter = () => {
+
+interface MainProps {
+
+}
+
+const MainPresenter = (props : MainProps) => {
 
     return (
         <styled.Container>
