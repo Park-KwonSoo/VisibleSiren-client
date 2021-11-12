@@ -3,14 +3,17 @@ import * as styled from './MainStyled';
 
 
 interface MainProps {
-
+    siren : boolean;
 }
 
 const MainPresenter = (props : MainProps) => {
 
     return (
         <styled.Container>
-            asd
+            {
+                props.siren ?
+                '불낳ㅆ따!' : 'Normal'
+            }
         </styled.Container>
     )
 }
