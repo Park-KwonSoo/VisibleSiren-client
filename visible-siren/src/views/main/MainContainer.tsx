@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
 import MainPresenter from './MainPresenter'
 
@@ -6,19 +7,38 @@ import '@tensorflow/tfjs'
 import * as speechCommand from '@tensorflow-models/speech-commands'
 import '@tensorflow/tfjs-backend-webgl'
 import { SpeechCommandRecognizer } from '@tensorflow-models/speech-commands'
-import { async } from 'q'
 
 const URL = 'https://teachablemachine.withgoogle.com/models/mEu7EKG82/'
-const _bin = '../../config/aiModel/weights.bin'
 
 const MainContainer = () => {
+	const useNotification = (title: string, options: any) => {
+		console.log(Notification.permission)
+
+		// if (!('Notification' in window)) {
+		// 	return
+		// }
+		const fireNotif = () => {
+			/* 권한 요청 부분 */
+			if (Notification.permission === 'denied') {
+				Notification.requestPermission().then((permission) => {
+					if (permission === 'granted') {
+						/* 권한을 요청받고 nofi를 생성해주는 부분 */
+						new Notification(title, options)
+					} else {
+						return
+					}
+				})
+			} else {
+				/* 권한이 있을때 바로 noti 생성해주는 부분 */
+				new Notification(title, options)
+			}
+		}
+		return fireNotif
+	}
+
 	const [model, setModel] = useState<SpeechCommandRecognizer>()
 	const [action, setAction] = useState<string | undefined>()
 	const [labels, setLabels] = useState<string[] | undefined>()
-	// (async ()=>{
-	//     const model = await tf.loadModel('file://./model-1a/model.json');
-	//     model.predict();
-	// })()
 
 	const loadModel = async () => {
 		// start loading model
@@ -61,10 +81,15 @@ const MainContainer = () => {
 		}
 	}
 
+	const triggerNotif = useNotification('Test Noti', {
+		body: 'notification body test',
+	})
+
 	return (
 		<>
 			<button onClick={recognizeCommands}>Press to Speak</button>
 			{action ? <div>{action}</div> : <div>No Action Detected</div>}
+			<button onClick={triggerNotif}> Push notification </button>
 			<MainPresenter />
 		</>
 	)
